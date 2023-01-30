@@ -12,7 +12,9 @@ Functions within the current release permit:
 
 
 License
+
 The code is provided under the MIT license 
 
 Support and acknowledge
+
 The code is maintained by Dr Dan Parker (d.j.parker1@salford.ac.uk) please contact directly for any enquires. 
