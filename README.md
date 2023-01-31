@@ -1,7 +1,7 @@
 # PlantarPressure
 Data analysis for plantar pressure data 
 
-This repository is intended to share methods for analysis of plantar pressure data across multiple data capture systems. Current code supports analysis for Tekscan, Pedar and XSensor when exported as csv.
+This repository is intended to share methods for analysis of plantar pressure data across multiple data capture systems. Current code supports analysis for Tekscan, Pedar and XSENSOR when exported as csv.
 
 Pressure Analysis
 
