@@ -7,9 +7,13 @@ Pressure Analysis
 
 Functions within the current release permit:
 
-[]
+* Import XSensor Data from CSV to stacked xarray format
 
 
+
+Packages Used
+
+XArray: https://docs.xarray.dev/en/stable/index.html
 
 License
 
