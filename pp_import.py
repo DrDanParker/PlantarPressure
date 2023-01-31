@@ -1,8 +1,8 @@
 #########################################################
 #
-#  Plantar Pressure Import 
+#  Plantar Pressure Import
 #	For inshoe pressure systems with fixed sensor number
-#	Uses XArray to build stacked 2D Grid 
+#	Uses XArray to build stacked 2D Grid
 #
 #	Author D Parker - University of Salford - 30-01-23
 #
@@ -15,21 +15,20 @@ from matplotlib import pyplot	as plt
 #########################################################
 ### Basic Fuctions:
 
-def chunks(lst, n):
-    """Yield successive n-sized chunks from lst."""
-    for i in range(0, len(lst), n):
-        yield lst[i:i + n]
+def chunks(lst, n_size):
+    """Yield successive n-sized chunks from lst"""
+    for i in range(0, len(lst), n_size):
+        yield lst[i:i + n_size]
 
-def import_csv(file, cutpoint=0):
+def import_csv(fname):
+    """read csv file into memory"""
     s = []
     with open(fname, newline='') as csvfile:
         dialect = csv.Sniffer().sniff(csvfile.read(1024))
         csvfile.seek(0)
         reader = csv.reader(csvfile, dialect)
-
         for row in reader:
             s.append(row)
-    
     return(s)
 
 def batch_convert(data_path,pressure_syst=None,ext_type='.csv'):
@@ -47,7 +46,7 @@ def batch_convert(data_path,pressure_syst=None,ext_type='.csv'):
                 ds.to_netcdf(o)
             
             elif pressure_syst == None:
-                print('pressure system not input')    
+                print('pressure system not input')
 
 #########################################################
 ### System Specific Functions:
@@ -76,7 +75,7 @@ def XSENSOR_import(fname):
         e = s+frame_size
         frame = dat[s:e]
         container.append(frame)
-        s = e + gap_size 
+        s = e + gap_size
         length = length- (frame_size + gap_size)
 
     #FLOAT AND ADD TO DATASET    
