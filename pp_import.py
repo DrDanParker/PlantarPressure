@@ -32,6 +32,22 @@ def import_csv(file, cutpoint=0):
     
     return(s)
 
+def batch_convert(data_path,pressure_syst=None,ext_type='.csv'):
+    files = os.listdir(data_path)
+    print('Converting to nc files:')
+    for i in range(len(files)):
+        (fileBaseName, fileExtension)=os.path.splitext(files[i])
+        if fileExtension == ext_type:
+            print(fileBaseName)
+            f = data_path + files[i]
+            o = data_path + fileBaseName + '.nc'
+            if pressure_syst == 'XSENSOR':
+                P_DataArray = XSENSOR_import(f)
+                ds = xr.Dataset({'pressure':P_DataArray})
+                ds.to_netcdf(o)
+            
+            elif pressure_syst == None:
+                print('pressure system not input')    
 
 #########################################################
 ### System Specific Functions:
@@ -85,6 +101,9 @@ f = 'your_file_name.csv'
 fext = 'your_file_type'
 fdir = 'your_directory'
 fname = fdir + f
+
+## Batch Convert files to nc:
+batch_convert(fdir,pressure_syst='XSENSOR')
 
 ## Returns XSENSOR data as xarray dataset: 
 sensor_name, sensor_area, P_Dataset = XSENSOR_import(fname)
