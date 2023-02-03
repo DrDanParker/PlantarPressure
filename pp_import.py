@@ -51,11 +51,23 @@ def batch_convert(data_path,pressure_syst=None,ext_type='.csv'):
             elif pressure_syst == None:
                 print('pressure system not input')
 
+def batch_load(data_path,ext_type='.nc'):
+    """load xarray data"""
+    pd.Data
+    files = os.listdir(data_path)
+    print('importing files:')
+    for i in range(len(files)):
+        (fileBaseName, fileExtension)=os.path.splitext(files[i])
+        if fileExtension == ext_type:
+            print(fileBaseName)
+
 #########################################################
 ### System Specific Functions:
 
 # XSENSOR
 def XSENSOR_import(fname):
+    """Data import for XSENSOR files"""
+    """Currently works for main export not group/mask export"""
     dat = import_csv(fname)
     
     #XSENSOR FILE CONSTANTS
@@ -92,7 +104,6 @@ def XSENSOR_import(fname):
     return(combined)
 
 
-
 #########################################################
 ### Example Test Code:
 
@@ -101,8 +112,12 @@ fext = '.csv'
 fdir = '/workspaces/PlantarPressure/Test_Files/'
 filename = fdir + file
 
+batch_load(fdir)
+
+
+
 ## Batch Convert files to nc:
-batch_convert(fdir,pressure_syst='XSENSOR')
+#batch_convert(fdir,pressure_syst='XSENSOR')
 
 ## Returns XSENSOR data as xarray dataset: 
 #P_Dataset = XSENSOR_import(filename)
