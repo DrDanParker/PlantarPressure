@@ -8,6 +8,7 @@
 #
 #########################################################
 
+# %%
 import os,csv
 import xarray as xr
 from matplotlib import pyplot	as plt
@@ -58,11 +59,8 @@ def XSENSOR_import(fname):
     #XSENSOR FILE CONSTANTS
     sensor_name = dat[8]
     sensor_area = float(dat[12][1])**2
-    '''
-    #To Calc Coords
-    len = 
-    wid = 
-    '''
+    #len = 
+    #wid = 
     first_frame = 25
     frame_size = 31
     gap_size = 22
@@ -85,27 +83,27 @@ def XSENSOR_import(fname):
         for i in container[con]:
             res = [float(j) for j in i]
             holder = holder + [res]
-        da = xr.DataArray(data=holder,dims=['l','w'])
+        da = xr.DataArray(data=holder,dims=['l','w'],name=sensor_name, attrs={'area':sensor_area})
         datasets.append(da)
     combined = xr.concat(datasets,dim='t')
 
-    return(sensor_name, sensor_area, combined)
+    return(combined)
 
 
 
 #########################################################
 ### Example Test Code:
 
-f = 'your_file_name.csv'
-fext = 'your_file_type'
-fdir = 'your_directory'
-fname = fdir + f
+file = 'TestWalk1.csv'
+fext = '.csv'
+fdir = '/workspaces/PlantarPressure/Test_Files/'
+filename = fdir + file
 
 ## Batch Convert files to nc:
-batch_convert(fdir,pressure_syst='XSENSOR')
+# batch_convert(fdir,pressure_syst='XSENSOR')
 
 ## Returns XSENSOR data as xarray dataset: 
-sensor_name, sensor_area, P_Dataset = XSENSOR_import(fname)
+P_Dataset = XSENSOR_import(filename)
 
 ### Simple Xarray functions:
 # Peak Pressure Map: highest sensor value for each sesor over time
@@ -114,6 +112,9 @@ PP = P_Dataset.max(dim='t')
 # Peak Pressure Curve: highest sensor value for each timepoint
 PP_Curve = P_Dataset.max(dim=['l','w'])
 
+# %%
 plt.figure()
 plt.plot(PP_Curve)
 plt.show()
+
+# %%
