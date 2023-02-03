@@ -8,6 +8,7 @@ Pressure Analysis
 Functions within the current release permit:
 
 * Import XSENSOR Data from CSV to stacked xarray format
+* Batch process CSV data to xarray format
 
 
 
