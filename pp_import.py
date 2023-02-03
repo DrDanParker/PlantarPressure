@@ -33,6 +33,7 @@ def import_csv(fname):
     return(s)
 
 def batch_convert(data_path,pressure_syst=None,ext_type='.csv'):
+    """converts all full data csv files to xarray"""
     files = os.listdir(data_path)
     print('Converting to nc files:')
     for i in range(len(files)):
@@ -41,6 +42,7 @@ def batch_convert(data_path,pressure_syst=None,ext_type='.csv'):
             print(fileBaseName)
             f = data_path + files[i]
             o = data_path + fileBaseName + '.nc'
+            print(o)
             if pressure_syst == 'XSENSOR':
                 P_DataArray = XSENSOR_import(f)
                 ds = xr.Dataset({'pressure':P_DataArray})
@@ -100,21 +102,18 @@ fdir = '/workspaces/PlantarPressure/Test_Files/'
 filename = fdir + file
 
 ## Batch Convert files to nc:
-# batch_convert(fdir,pressure_syst='XSENSOR')
+batch_convert(fdir,pressure_syst='XSENSOR')
 
 ## Returns XSENSOR data as xarray dataset: 
-P_Dataset = XSENSOR_import(filename)
+#P_Dataset = XSENSOR_import(filename)
 
 ### Simple Xarray functions:
 # Peak Pressure Map: highest sensor value for each sesor over time
-PP = P_Dataset.max(dim='t')
+#PP = P_Dataset.max(dim='t')
 
 # Peak Pressure Curve: highest sensor value for each timepoint
-PP_Curve = P_Dataset.max(dim=['l','w'])
+#PP_Curve = P_Dataset.max(dim=['l','w'])
 
-# %%
-plt.figure()
-plt.plot(PP_Curve)
-plt.show()
-
-# %%
+# plt.figure()
+# plt.plot(PP_Curve)
+# plt.show()
