@@ -12,6 +12,7 @@
 import os,csv
 import xarray as xr
 from matplotlib import pyplot	as plt
+import pandas as pd
 
 #########################################################
 ### Basic Fuctions:
@@ -53,13 +54,17 @@ def batch_convert(data_path,pressure_syst=None,ext_type='.csv'):
 
 def batch_load(data_path,ext_type='.nc'):
     """load xarray data"""
-    pd.Data
+    input_data = {}
     files = os.listdir(data_path)
     print('importing files:')
     for i in range(len(files)):
         (fileBaseName, fileExtension)=os.path.splitext(files[i])
         if fileExtension == ext_type:
             print(fileBaseName)
+            f = data_path + files[i]
+            fdat = xr.open_dataset(f)
+            input_data[fileBaseName) = fdat
+    return(input_data)
 
 #########################################################
 ### System Specific Functions:
@@ -112,8 +117,10 @@ fext = '.csv'
 fdir = '/workspaces/PlantarPressure/Test_Files/'
 filename = fdir + file
 
-batch_load(fdir)
-
+arrays = batch_load(fdir)
+for key in array:
+    print(key)
+    print(array[key])
 
 
 ## Batch Convert files to nc:
