@@ -110,7 +110,7 @@ def XSENSOR_import(fname):
 
 #########################################################
 ### Example Test Code:
-
+'''
 file = 'TestWalk1.csv'
 fext = '.csv'
 fdir = '/workspaces/PlantarPressure/Test_Files/'
@@ -120,8 +120,7 @@ arrays = batch_load(fdir)
 for key in arrays:
     P_Dataset = arrays[key].to_array()
     PP_Curve = P_Dataset.max(dim=['l','w'])
-    plt.figure()
-    plt.plot(PP_Curve)
+    PP_Curve.plot()
 
 plt.show()
 
@@ -141,3 +140,5 @@ plt.show()
 # plt.figure()
 # plt.plot(PP_Curve)
 # plt.show()
+
+'''
