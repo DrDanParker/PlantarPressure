@@ -12,7 +12,7 @@
 import os,csv
 import xarray as xr
 from matplotlib import pyplot	as plt
-import pandas as pd
+
 
 #########################################################
 ### Basic Fuctions:
@@ -63,7 +63,7 @@ def batch_load(data_path,ext_type='.nc'):
             print(fileBaseName)
             f = data_path + files[i]
             fdat = xr.open_dataset(f)
-            input_data[fileBaseName) = fdat
+            input_data[fileBaseName] = fdat
     return(input_data)
 
 #########################################################
@@ -108,7 +108,6 @@ def XSENSOR_import(fname):
 
     return(combined)
 
-
 #########################################################
 ### Example Test Code:
 
@@ -118,10 +117,13 @@ fdir = '/workspaces/PlantarPressure/Test_Files/'
 filename = fdir + file
 
 arrays = batch_load(fdir)
-for key in array:
-    print(key)
-    print(array[key])
+for key in arrays:
+    P_Dataset = arrays[key].to_array()
+    PP_Curve = P_Dataset.max(dim=['l','w'])
+    plt.figure()
+    plt.plot(PP_Curve)
 
+plt.show()
 
 ## Batch Convert files to nc:
 #batch_convert(fdir,pressure_syst='XSENSOR')
